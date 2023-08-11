@@ -12,6 +12,13 @@ ARG DST_USER=dst
 ARG DST_GROUP=dst
 ARG DST_USER_DATA_PATH=/data
 
+# add Chinese
+RUN apt-get update
+RUN apt-get install -y locales
+RUN sed -ie 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/g' /etc/locale.gen
+RUN locale-gen
+ENV LANG zh_CN.UTF-8
+
 # install packages
 RUN dpkg --add-architecture i386 \
     && apt-get update -y \
